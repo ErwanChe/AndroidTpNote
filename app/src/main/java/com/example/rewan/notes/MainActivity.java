@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -12,11 +14,19 @@ import android.view.View;
 import android.widget.EditText;
 
 public class MainActivity extends Activity {
+    private RecyclerView rcview;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        rcview = findViewById(R.id.v_recycle);
+
+        rcview.setAdapter(new NameAdapter(getLayoutInflater()));
+        rcview.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
@@ -34,16 +44,28 @@ public class MainActivity extends Activity {
             View dialogView = inflater.inflate(R.layout.newboite,null);
             builder.setView(dialogView);
 
-            builder.setTitle("XAR TSAROTH");
+            builder.setTitle("Créer une nouvelle note");
 
-            builder.setPositiveButton("OUI", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
                     AlertDialog alertDialog = (AlertDialog) dialog;
                     EditText et =  alertDialog.findViewById(R.id.note_name);
-                    Log.d("OUI","J'ai cliqué OUI" + et.getText().toString());
+                    NameAdapter nameAdapter = (NameAdapter) rcview.getAdapter();
+                    nameAdapter.add(et.getText().toString());
+
+                }
+            });
+
+            builder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    AlertDialog alertDialog = (AlertDialog) dialog;
+                    EditText et =  alertDialog.findViewById(R.id.note_name);
                 }
             });
 
