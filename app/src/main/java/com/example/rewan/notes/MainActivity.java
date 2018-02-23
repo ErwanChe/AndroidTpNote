@@ -61,13 +61,12 @@ public class MainActivity extends Activity {
 
             builder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
 
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
 
-                    AlertDialog alertDialog = (AlertDialog) dialog;
-                    EditText et =  alertDialog.findViewById(R.id.note_name);
-                }
-            });
+                /*AlertDialog alertDialog = (AlertDialog) dialog;
+                EditText et =  alertDialog.findViewById(R.id.note_name);*/
+            }});
 
             AlertDialog dialog = builder.create();
             dialog.show();
